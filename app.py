@@ -71,7 +71,6 @@ def create_users():
     username_set.add(new_user["username"])
     new_user["id"] = str(uuid.uuid4())
     users[new_user["id"]] = (new_user)
-    logging.info(json.dumps(new_user))
     return jsonify({"success": True, "userId": new_user["id"]})
 
 
@@ -80,16 +79,13 @@ def create_users():
 def get_users(user_id=None):
     if user_id:
         try:
-            current_users = {user_id: users[user_id]}
-            logging.info(json.dumps(current_users))
-            return jsonify({"success": True, "users": current_users})
+            return jsonify({"success": True, "users": [users[user_id]]})
         except KeyError:
             logging.info(f"{user_id} NOT FOUND")
             response = jsonify({"success": False, "desc": "User not found"})
             response.status_code = 404
             return response
-    logging.info(json.dumps(users))
-    return jsonify({"success": True, "users": users})
+    return jsonify({"success": True, "users": [users[key] for key in users]})
 
 
 def create_app():
