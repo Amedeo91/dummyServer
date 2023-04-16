@@ -58,6 +58,15 @@ class RepeatedTimer(object):
 RepeatedTimer(60*15, lambda: logging.info("KEEP ALIVE"))
 
 
+@app.get('/reset')
+def reset_server(user_id=None):
+    global users
+    global username_set
+    users = dict()
+    username_set = set()
+    return jsonify({"success": True})
+
+
 @app.post('/users')
 def create_users():
     new_user = dict()
