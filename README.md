@@ -1,5 +1,5 @@
 # dummyServer
-Server to call and create users stored in memory.
+Server to call and create users and keep them in memory.
 
 Three endpoints:
 * GET /reset
